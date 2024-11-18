@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vCard - Personal Portfolio</title>
+  <title>Hello World !</title>
 
   <!--
     - favicon
@@ -42,17 +42,17 @@
       <div class="sidebar-info">
 
         <figure class="avatar-box">
-          <img src="./assets/images/my-avatar.png" alt="Richard hanrick" width="80">
+          <img src="./assets/images/my-avatar.png" alt="José Dourado" width="80">
         </figure>
 
         <div class="info-content">
-          <h1 class="name" title="Richard hanrick">Richard hanrick</h1>
+          <h1 class="name" title="José Dourado">José Dourado</h1>
 
-          <p class="title">Web developer</p>
+          <p class="title">Desenvolvedor Web</p>
         </div>
 
         <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
+          <span>Mostrar Contatos</span>
 
           <ion-icon name="chevron-down"></ion-icon>
         </button>
@@ -74,7 +74,7 @@
             <div class="contact-info">
               <p class="contact-title">Email</p>
 
-              <a href="mailto:richard@example.com" class="contact-link">richard@example.com</a>
+              <a href="mailto:richard@example.com" class="contact-link">diisantorsula@gmail.com</a>
             </div>
 
           </li>
@@ -86,9 +86,9 @@
             </div>
 
             <div class="contact-info">
-              <p class="contact-title">Phone</p>
+              <p class="contact-title">Celular</p>
 
-              <a href="tel:+12133522795" class="contact-link">+1 (213) 352-2795</a>
+              <a href="tel:+12133522795" class="contact-link">+55 (14) 99869-0192</a>
             </div>
 
           </li>
@@ -100,9 +100,9 @@
             </div>
 
             <div class="contact-info">
-              <p class="contact-title">Birthday</p>
+              <p class="contact-title">Desde</p>
 
-              <time datetime="1982-06-23">June 23, 1982</time>
+              <time datetime="1982-06-23">23 de Outubro de 1992</time>
             </div>
 
           </li>
@@ -114,9 +114,9 @@
             </div>
 
             <div class="contact-info">
-              <p class="contact-title">Location</p>
+              <p class="contact-title">Local</p>
 
-              <address>Sacramento, California, USA</address>
+              <address>Marília-SP - Brasil</address>
             </div>
 
           </li>
@@ -170,11 +170,11 @@
         <ul class="navbar-list">
 
           <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>About</button>
+            <button class="navbar-link  active" data-nav-link>Sobre</button>
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Resume</button>
+            <button class="navbar-link" data-nav-link>Resumo</button>
           </li>
 
           <li class="navbar-item">
@@ -182,11 +182,7 @@
           </li>
 
           <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Blog</button>
-          </li>
-
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>Contact</button>
+            <button class="navbar-link" data-nav-link>Contatos</button>
           </li>
 
         </ul>
@@ -204,22 +200,19 @@
       <article class="about  active" data-page="about">
 
         <header>
-          <h2 class="h2 article-title">About me</h2>
+          <h2 class="h2 article-title">Sobre mim</h2>
         </header>
 
         <section class="about-text">
           <p>
-            I'm Creative Director and UI/UX Designer from Sydney, Australia, working in web development and print media.
-            I enjoy
-            turning complex problems into simple, beautiful and intuitive designs.
+           Apaixonado por tecnologia, pertenço ao incrível mundo dos computadores desde os meus 06 anos de idade, quando ganhei de meus tios o moderníssimmo 468 DX4 com 32Mb de Memória RAM
+           e 4GB de HD (sim, isso era o suprassumo da época rs), e desde então não parei mais de querer adquirir conhecimento e domínio sobre aquelas fascinantes máquinas e o seu funcionamento!
           </p>
 
           <p>
-            My job is to build your website so that it is functional and user-friendly but at the same time attractive.
-            Moreover, I
-            add personal touch to your product and make sure that is eye-catching and easy to use. My aim is to bring
-            across your
-            message and identity in the most creative way. I created web design for many famous brand companies.
+            Mas algo não estava completo, sentia que ainda me faltava algo, foi então que fiz a escolha de entrar no mundo da Programação, onde iniciei o Curso técnico de Desenvolvimento de Sistemas na Etec Antônio
+            Devisate em Marília, onde me encontrei com o mundo da programação Web, e foi "Amor ao primeiro Hello World", e desde enão venho exercendo a função de Programador Web, buscando sempre adquirir conhecimento
+            dar sempre o meu melhor em cada linha de código que escrevo.
           </p>
         </section>
 
@@ -230,38 +223,37 @@
 
         <section class="service">
 
-          <h3 class="h3 service-title">What i'm doing</h3>
+          <h3 class="h3 service-title">Oque eu sei fazer ?</h3>
 
           <ul class="service-list">
 
             <li class="service-item">
 
               <div class="service-icon-box">
-                <img src="./assets/images/icon-design.svg
-                " alt="design icon" width="40">
+                </div>
+                
+                <div class="service-content-box">
+                  <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
+                  <h4 class="h4 service-item-title">Desenvolvimeno de Sites</h4>
+                  
+                  <p class="service-item-text">
+                    Desenvolvimento de Sites, Landing Pages e Plataformas Online com Excelencia, Usabilidade e Facilidade para o Usuário Final.
+                  </p>
+                </div>
+                
+              </li>
+              
+              <li class="service-item">
+                
+                <div class="service-icon-box">
+                <img src="./assets/images/icon-design.svg" alt="design icon" width="40">
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web design</h4>
+                <h4 class="h4 service-item-title">Desenvolvimento de Sistemas Web</h4>
 
                 <p class="service-item-text">
-                  The most modern and high-quality design made at a professional level.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-dev.svg" alt="Web development icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Web development</h4>
-
-                <p class="service-item-text">
-                  High-quality development of sites at the professional level.
+                  Com qualidade e Minusciosidade em cada módulo e função, estou pronto para iniciarmos o seu projeto ou sistema, do jeito que você sempre planejou!
                 </p>
               </div>
 
@@ -274,26 +266,10 @@
               </div>
 
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Mobile apps</h4>
+                <h4 class="h4 service-item-title">Responsividade</h4>
 
                 <p class="service-item-text">
-                  Professional development of applications for iOS and Android.
-                </p>
-              </div>
-
-            </li>
-
-            <li class="service-item">
-
-              <div class="service-icon-box">
-                <img src="./assets/images/icon-photo.svg" alt="camera icon" width="40">
-              </div>
-
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Photography</h4>
-
-                <p class="service-item-text">
-                  I make high-quality photos of any category at a professional level.
+                  O Desenvolvimento se extende à Dispositivos Móveis como celulares e tablets, visando assim maior acessibilidade dos dados de qualquer lugar.
                 </p>
               </div>
 
@@ -310,7 +286,7 @@
 
         <section class="testimonials">
 
-          <h3 class="h3 testimonials-title">Testimonials</h3>
+          <h3 class="h3 testimonials-title">Alguns Comentários</h3>
 
           <ul class="testimonials-list has-scrollbar">
 
@@ -321,7 +297,7 @@
                   <img src="./assets/images/avatar-1.png" alt="Daniel lewis" width="60" data-testimonials-avatar>
                 </figure>
 
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
+                <h4 class="h4 testimonials-item-title" data-testimonials-title>Luís Antônio Bonafé</h4>
 
                 <div class="testimonials-text" data-testimonials-text>
                   <p>
@@ -458,7 +434,7 @@
 
         <section class="clients">
 
-          <h3 class="h3 clients-title">Clients</h3>
+          <h3 class="h3 clients-title">Cases</h3>
 
           <ul class="clients-list has-scrollbar">
 
@@ -512,7 +488,7 @@
         - #RESUME
       -->
 
-      <article class="resume" data-page="resume">
+      <article class="resume active" data-page="resume">
 
         <header>
           <h2 class="h2 article-title">Resume</h2>
@@ -1179,11 +1155,6 @@
     </div>
 
   </main>
-
-
-
-
-
 
   <!--
     - custom js link
