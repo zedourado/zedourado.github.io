@@ -119,6 +119,7 @@ for (let i = 0; i < filterBtn.length; i++) {
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
+const formStatus = document.querySelector("[data-form-status]");
 
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
@@ -133,6 +134,54 @@ for (let i = 0; i < formInputs.length; i++) {
 
   });
 }
+
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  if (!form.checkValidity()) return;
+
+  formBtn.setAttribute("disabled", "");
+  formBtn.querySelector("span").innerText = "Enviando...";
+
+  if (formStatus) {
+    formStatus.classList.remove("success", "error");
+    formStatus.textContent = "Enviando sua mensagem...";
+  }
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value,
+        _subject: "Novo contato pelo portfólio",
+        _template: "table",
+        _captcha: "false"
+      })
+    });
+
+    if (!response.ok) throw new Error("Falha no envio do formulário");
+
+    form.reset();
+    if (formStatus) {
+      formStatus.classList.add("success");
+      formStatus.textContent = "Mensagem enviada com sucesso! Em breve entrarei em contato.";
+    }
+  } catch (error) {
+    if (formStatus) {
+      formStatus.classList.add("error");
+      formStatus.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
+    }
+  } finally {
+    formBtn.querySelector("span").innerText = "Enviar Email!";
+    formBtn.setAttribute("disabled", "");
+  }
+});
 
 
 
