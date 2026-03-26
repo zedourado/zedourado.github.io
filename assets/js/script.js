@@ -55,6 +55,53 @@ overlay.addEventListener("click", testimonialsModalFunc);
 
 
 
+// portfolio case modal variables
+const projectModalContainer = document.querySelector("[data-project-modal-container]");
+const projectModalOverlay = document.querySelector("[data-project-modal-overlay]");
+const projectModalCloseBtn = document.querySelector("[data-project-modal-close-btn]");
+const projectModalTitle = document.querySelector("[data-project-modal-title]");
+const projectModalDescription = document.querySelector("[data-project-modal-description]");
+const projectModalGallery = document.querySelector("[data-project-modal-gallery]");
+const projectOpenButtons = document.querySelectorAll("[data-project-open]");
+
+const projectCases = {
+  "case-psp": {
+    title: "Case: Website com Painel Administrativo (PSP Química)",
+    description: "Projeto focado em presença digital e autonomia editorial. Foi estruturado um painel para o time atualizar páginas, produtos e conteúdos institucionais sem depender de deploy técnico.",
+    screenshots: ["./assets/images/index_psp.png", "./assets/images/pspquimica.webp"]
+  },
+  "case-ribeiro": {
+    title: "Case: Manutenção e Evolução Contínua (Ribeiro Doces)",
+    description: "Atuação contínua em ajustes visuais, atualização de catálogo e melhorias de performance. O foco foi manter o site estável, com ciclos curtos de entrega e correções rápidas em produção.",
+    screenshots: ["./assets/images/index-ribeiro.png", "./assets/images/ribeiro.webp"]
+  }
+};
+
+const toggleProjectModal = function (show) {
+  projectModalContainer.classList.toggle("active", show);
+};
+
+const openProjectModal = function (caseId) {
+  const caseData = projectCases[caseId];
+  if (!caseData) return;
+
+  projectModalTitle.textContent = caseData.title;
+  projectModalDescription.textContent = caseData.description;
+  projectModalGallery.innerHTML = caseData.screenshots.map((imagePath) => `<img src="${imagePath}" alt="Screenshot do projeto">`).join("");
+  toggleProjectModal(true);
+};
+
+for (let i = 0; i < projectOpenButtons.length; i++) {
+  projectOpenButtons[i].addEventListener("click", function (event) {
+    event.preventDefault();
+    openProjectModal(this.dataset.projectOpen);
+  });
+}
+
+projectModalCloseBtn.addEventListener("click", function () { toggleProjectModal(false); });
+projectModalOverlay.addEventListener("click", function () { toggleProjectModal(false); });
+
+
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
@@ -82,9 +129,11 @@ const filterFunc = function (selectedValue) {
 
   for (let i = 0; i < filterItems.length; i++) {
 
+    const itemCategory = filterItems[i].dataset.category.toLowerCase();
+
     if (selectedValue === "all") {
       filterItems[i].classList.add("active");
-    } else if (selectedValue === filterItems[i].dataset.category.toLowerCase()) {
+    } else if (selectedValue === itemCategory) {
       filterItems[i].classList.add("active");
     } else {
       filterItems[i].classList.remove("active");
@@ -119,6 +168,7 @@ for (let i = 0; i < filterBtn.length; i++) {
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
+const formStatus = document.querySelector("[data-form-status]");
 
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
@@ -133,6 +183,54 @@ for (let i = 0; i < formInputs.length; i++) {
 
   });
 }
+
+form.addEventListener("submit", async function (event) {
+  event.preventDefault();
+
+  if (!form.checkValidity()) return;
+
+  formBtn.setAttribute("disabled", "");
+  formBtn.querySelector("span").innerText = "Enviando...";
+
+  if (formStatus) {
+    formStatus.classList.remove("success", "error");
+    formStatus.textContent = "Enviando sua mensagem...";
+  }
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        name: form.name.value,
+        email: form.email.value,
+        message: form.message.value,
+        _subject: "Novo contato pelo portfólio",
+        _template: "table",
+        _captcha: "false"
+      })
+    });
+
+    if (!response.ok) throw new Error("Falha no envio do formulário");
+
+    form.reset();
+    if (formStatus) {
+      formStatus.classList.add("success");
+      formStatus.textContent = "Mensagem enviada com sucesso! Em breve entrarei em contato.";
+    }
+  } catch (error) {
+    if (formStatus) {
+      formStatus.classList.add("error");
+      formStatus.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
+    }
+  } finally {
+    formBtn.querySelector("span").innerText = "Enviar Email!";
+    formBtn.setAttribute("disabled", "");
+  }
+});
 
 
 
