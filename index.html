@@ -802,7 +802,7 @@
 
           <h3 class="h3 form-title">Formulario para Contato</h3>
 
-          <form action="#" class="form" data-form>
+          <form action="https://formspree.io/f/SEU_FORM_ID" class="form" data-form method="POST">
 
             <div class="input-wrapper">
               <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
@@ -812,9 +812,11 @@
 
             <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
 
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+
             <button class="form-btn" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
-              <span>Enviar Email!</span>
+              <span data-form-btn-label>Enviar Email!</span>
             </button>
 
           </form>

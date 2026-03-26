@@ -119,6 +119,8 @@ for (let i = 0; i < filterBtn.length; i++) {
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
+const formBtnLabel = document.querySelector("[data-form-btn-label]");
+const formStatus = document.querySelector("[data-form-status]");
 
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
@@ -131,6 +133,47 @@ for (let i = 0; i < formInputs.length; i++) {
       formBtn.setAttribute("disabled", "");
     }
 
+  });
+}
+
+if (form) {
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      formStatus.textContent = "Por favor, preencha os campos obrigatórios corretamente.";
+      formStatus.dataset.state = "error";
+      return;
+    }
+
+    const submitLabel = formBtnLabel.textContent;
+    formBtn.setAttribute("disabled", "");
+    formStatus.textContent = "Enviando mensagem...";
+    formStatus.dataset.state = "loading";
+    formBtnLabel.textContent = "Enviando...";
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      });
+
+      if (!response.ok) {
+        throw new Error("Falha ao enviar formulário.");
+      }
+
+      form.reset();
+      formBtn.setAttribute("disabled", "");
+      formStatus.textContent = "Mensagem enviada com sucesso! Retornarei em breve.";
+      formStatus.dataset.state = "success";
+    } catch (error) {
+      formStatus.textContent = "Não foi possível enviar agora. Tente novamente em instantes.";
+      formStatus.dataset.state = "error";
+    } finally {
+      formBtnLabel.textContent = submitLabel;
+    }
   });
 }
 
