@@ -802,15 +802,21 @@
 
           <h3 class="h3 form-title">Formulario para Contato</h3>
 
-          <form action="#" class="form" data-form>
+          <form action="https://formsubmit.co/ajax/diisantorsula@gmail.com" method="POST" class="form" data-form>
+
+            <input type="hidden" name="_subject" value="Novo contato pelo portfólio">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
 
             <div class="input-wrapper">
-              <input type="text" name="fullname" class="form-input" placeholder="Full name" required data-form-input>
+              <input type="text" name="name" class="form-input" placeholder="Seu nome" required data-form-input>
 
-              <input type="email" name="email" class="form-input" placeholder="Email address" required data-form-input>
+              <input type="email" name="email" class="form-input" placeholder="Seu melhor email" required data-form-input>
             </div>
 
-            <textarea name="message" class="form-input" placeholder="Your Message" required data-form-input></textarea>
+            <textarea name="message" class="form-input" placeholder="Escreva sua mensagem" required data-form-input></textarea>
+
+            <p class="form-status" data-form-status aria-live="polite"></p>
 
             <button class="form-btn" type="submit" disabled data-form-btn>
               <ion-icon name="paper-plane"></ion-icon>
