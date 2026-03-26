@@ -1152,6 +1152,18 @@ main {
   margin-bottom: 25px;
 }
 
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-label {
+  color: var(--white-2);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-500);
+}
+
 .form-input {
   color: var(--white-2);
   font-size: var(--fs-6);
