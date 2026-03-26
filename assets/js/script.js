@@ -55,6 +55,53 @@ overlay.addEventListener("click", testimonialsModalFunc);
 
 
 
+// portfolio case modal variables
+const projectModalContainer = document.querySelector("[data-project-modal-container]");
+const projectModalOverlay = document.querySelector("[data-project-modal-overlay]");
+const projectModalCloseBtn = document.querySelector("[data-project-modal-close-btn]");
+const projectModalTitle = document.querySelector("[data-project-modal-title]");
+const projectModalDescription = document.querySelector("[data-project-modal-description]");
+const projectModalGallery = document.querySelector("[data-project-modal-gallery]");
+const projectOpenButtons = document.querySelectorAll("[data-project-open]");
+
+const projectCases = {
+  "case-psp": {
+    title: "Case: Website com Painel Administrativo (PSP Química)",
+    description: "Projeto focado em presença digital e autonomia editorial. Foi estruturado um painel para o time atualizar páginas, produtos e conteúdos institucionais sem depender de deploy técnico.",
+    screenshots: ["./assets/images/index_psp.png", "./assets/images/pspquimica.webp"]
+  },
+  "case-ribeiro": {
+    title: "Case: Manutenção e Evolução Contínua (Ribeiro Doces)",
+    description: "Atuação contínua em ajustes visuais, atualização de catálogo e melhorias de performance. O foco foi manter o site estável, com ciclos curtos de entrega e correções rápidas em produção.",
+    screenshots: ["./assets/images/index-ribeiro.png", "./assets/images/ribeiro.webp"]
+  }
+};
+
+const toggleProjectModal = function (show) {
+  projectModalContainer.classList.toggle("active", show);
+};
+
+const openProjectModal = function (caseId) {
+  const caseData = projectCases[caseId];
+  if (!caseData) return;
+
+  projectModalTitle.textContent = caseData.title;
+  projectModalDescription.textContent = caseData.description;
+  projectModalGallery.innerHTML = caseData.screenshots.map((imagePath) => `<img src="${imagePath}" alt="Screenshot do projeto">`).join("");
+  toggleProjectModal(true);
+};
+
+for (let i = 0; i < projectOpenButtons.length; i++) {
+  projectOpenButtons[i].addEventListener("click", function (event) {
+    event.preventDefault();
+    openProjectModal(this.dataset.projectOpen);
+  });
+}
+
+projectModalCloseBtn.addEventListener("click", function () { toggleProjectModal(false); });
+projectModalOverlay.addEventListener("click", function () { toggleProjectModal(false); });
+
+
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
