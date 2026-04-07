@@ -1,5 +1,27 @@
 'use strict';
 
+const visitCountElement = document.querySelector("[data-visit-count]");
+
+const updateVisitCounter = async function () {
+  if (!visitCountElement) return;
+
+  const namespace = "zedourado-github-io";
+  const key = "portfolio-home";
+  const endpoint = `https://api.countapi.xyz/hit/${namespace}/${key}`;
+
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error("Erro ao carregar contador");
+
+    const data = await response.json();
+    visitCountElement.textContent = data.value.toLocaleString("pt-BR");
+  } catch (error) {
+    visitCountElement.textContent = "indisponível";
+  }
+};
+
+updateVisitCounter();
+
 
 
 // element toggle function
