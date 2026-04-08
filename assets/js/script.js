@@ -2,22 +2,61 @@
 
 const visitCountElement = document.querySelector("[data-visit-count]");
 
+const VISIT_COUNTER_NAMESPACE = "zedourado-github-io";
+const VISIT_COUNTER_KEY = "portfolio-home";
+const VISIT_COUNTER_FALLBACK_KEY = "portfolio-home-fallback";
+const VISIT_COUNTER_SESSION_KEY = "portfolio-home-session-incremented";
+
+const fetchCounterValue = async function (url) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(function () { controller.abort(); }, 7000);
+
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      cache: "no-store"
+    });
+
+    if (!response.ok) throw new Error(`Erro HTTP ${response.status}`);
+
+    const data = await response.json();
+    if (typeof data.value !== "number") throw new Error("Resposta inválida do contador");
+
+    return data.value;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+};
+
 const updateVisitCounter = async function () {
   if (!visitCountElement) return;
 
-  const namespace = "zedourado-github-io";
-  const key = "portfolio-home";
-  const endpoint = `https://api.countapi.xyz/hit/${namespace}/${key}`;
+  const endpoints = [
+    `https://api.countapi.xyz/hit/${VISIT_COUNTER_NAMESPACE}/${VISIT_COUNTER_KEY}`,
+    `https://countapi.xyz/hit/${VISIT_COUNTER_NAMESPACE}/${VISIT_COUNTER_KEY}`
+  ];
 
-  try {
-    const response = await fetch(endpoint);
-    if (!response.ok) throw new Error("Erro ao carregar contador");
-
-    const data = await response.json();
-    visitCountElement.textContent = data.value.toLocaleString("pt-BR");
-  } catch (error) {
-    visitCountElement.textContent = "indisponível";
+  for (let i = 0; i < endpoints.length; i++) {
+    try {
+      const value = await fetchCounterValue(endpoints[i]);
+      visitCountElement.textContent = value.toLocaleString("pt-BR");
+      return;
+    } catch (error) {
+      console.warn("Falha ao consultar contador remoto:", endpoints[i], error);
+    }
   }
+
+  const sessionAlreadyIncremented = sessionStorage.getItem(VISIT_COUNTER_SESSION_KEY) === "1";
+  const localCount = Number(localStorage.getItem(VISIT_COUNTER_FALLBACK_KEY) || "0");
+  const fallbackCount = sessionAlreadyIncremented ? localCount : localCount + 1;
+
+  if (!sessionAlreadyIncremented) {
+    localStorage.setItem(VISIT_COUNTER_FALLBACK_KEY, String(fallbackCount));
+    sessionStorage.setItem(VISIT_COUNTER_SESSION_KEY, "1");
+  }
+
+  visitCountElement.textContent = `${fallbackCount.toLocaleString("pt-BR")}*`;
+  visitCountElement.title = "Contagem local exibida porque o serviço remoto não respondeu.";
 };
 
 updateVisitCounter();
