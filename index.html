@@ -726,7 +726,7 @@
           <ul class="project-list">
 
             <li class="project-item  active" data-filter-item data-category="Plataformas">
-              <a href="./assets/images/sic-index.png" target="_blank" rel="noopener noreferrer">
+              <a href="./assets/images/sic-index.png" data-project-open="case-sic">
 
                 <figure class="project-img">
                   <div class="project-item-icon-box">
@@ -802,7 +802,19 @@
             <h3 class="h3 project-modal-title" data-project-modal-title>Case</h3>
             <p class="project-modal-description" data-project-modal-description></p>
 
-            <div class="project-modal-gallery" data-project-modal-gallery></div>
+            <div class="project-modal-carousel" data-project-modal-carousel>
+              <img class="project-modal-image" data-project-modal-image src="./assets/images/index_SIC.png" alt="Imagem do projeto">
+
+              <button class="project-modal-nav prev" data-project-modal-prev aria-label="Imagem anterior">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+
+              <button class="project-modal-nav next" data-project-modal-next aria-label="Próxima imagem">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </button>
+            </div>
+
+            <div class="project-modal-dots" data-project-modal-dots></div>
           </article>
         </section>
 
