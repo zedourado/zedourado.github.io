@@ -192,7 +192,7 @@ const filterFunc = function (selectedValue) {
 
     const itemCategory = filterItems[i].dataset.category.toLowerCase();
 
-    if (selectedValue === "all") {
+    if (selectedValue === "all" || selectedValue === "todos") {
       filterItems[i].classList.add("active");
     } else if (selectedValue === itemCategory) {
       filterItems[i].classList.add("active");
@@ -302,9 +302,10 @@ const pages = document.querySelectorAll("[data-page]");
 // add event to all nav link
 for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
+    const selectedPage = this.dataset.navTarget || this.innerText.toLowerCase();
 
     for (let i = 0; i < pages.length; i++) {
-      if (this.innerHTML.toLowerCase() === pages[i].dataset.page) {
+      if (selectedPage === pages[i].dataset.page) {
         pages[i].classList.add("active");
         navigationLinks[i].classList.add("active");
         window.scrollTo(0, 0);
