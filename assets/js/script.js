@@ -122,10 +122,22 @@ const projectModalOverlay = document.querySelector("[data-project-modal-overlay]
 const projectModalCloseBtn = document.querySelector("[data-project-modal-close-btn]");
 const projectModalTitle = document.querySelector("[data-project-modal-title]");
 const projectModalDescription = document.querySelector("[data-project-modal-description]");
-const projectModalGallery = document.querySelector("[data-project-modal-gallery]");
+const projectModalCarousel = document.querySelector("[data-project-modal-carousel]");
+const projectModalImage = document.querySelector("[data-project-modal-image]");
+const projectModalDots = document.querySelector("[data-project-modal-dots]");
+const projectModalPrev = document.querySelector("[data-project-modal-prev]");
+const projectModalNext = document.querySelector("[data-project-modal-next]");
 const projectOpenButtons = document.querySelectorAll("[data-project-open]");
 
+let currentCaseScreenshots = [];
+let currentImageIndex = 0;
+
 const projectCases = {
+  "case-sic": {
+    title: "Case: Sistema de Gestão Empresarial (Insight-SIC)",
+    description: "Plataforma web interna para unificar rotinas administrativas, vendas e indicadores operacionais. O projeto priorizou rastreabilidade, padronização de fluxos e visão consolidada para tomada de decisão.",
+    screenshots: ["./assets/images/index_SIC.png", "./assets/images/sic-index.png"]
+  },
   "case-psp": {
     title: "Case: Website com Painel Administrativo (PSP Química)",
     description: "Projeto focado em presença digital e autonomia editorial. Foi estruturado um painel para o time atualizar páginas, produtos e conteúdos institucionais sem depender de deploy técnico.",
@@ -142,13 +154,31 @@ const toggleProjectModal = function (show) {
   projectModalContainer.classList.toggle("active", show);
 };
 
+const renderProjectModalImage = function () {
+  if (!currentCaseScreenshots.length) return;
+
+  const imagePath = currentCaseScreenshots[currentImageIndex];
+  projectModalImage.src = imagePath;
+  projectModalImage.alt = `Imagem ${currentImageIndex + 1} de ${currentCaseScreenshots.length} do projeto`;
+
+  projectModalDots.innerHTML = currentCaseScreenshots
+    .map((_, index) => `<button class="project-modal-dot ${index === currentImageIndex ? "active" : ""}" data-project-dot="${index}" aria-label="Ir para imagem ${index + 1}"></button>`)
+    .join("");
+};
+
 const openProjectModal = function (caseId) {
   const caseData = projectCases[caseId];
   if (!caseData) return;
 
   projectModalTitle.textContent = caseData.title;
   projectModalDescription.textContent = caseData.description;
-  projectModalGallery.innerHTML = caseData.screenshots.map((imagePath) => `<img src="${imagePath}" alt="Screenshot do projeto">`).join("");
+  currentCaseScreenshots = caseData.screenshots;
+  currentImageIndex = 0;
+
+  const hasMultipleImages = currentCaseScreenshots.length > 1;
+  projectModalCarousel.classList.toggle("is-multi", hasMultipleImages);
+
+  renderProjectModalImage();
   toggleProjectModal(true);
 };
 
@@ -161,6 +191,26 @@ for (let i = 0; i < projectOpenButtons.length; i++) {
 
 projectModalCloseBtn.addEventListener("click", function () { toggleProjectModal(false); });
 projectModalOverlay.addEventListener("click", function () { toggleProjectModal(false); });
+
+projectModalPrev.addEventListener("click", function () {
+  if (!currentCaseScreenshots.length) return;
+  currentImageIndex = (currentImageIndex - 1 + currentCaseScreenshots.length) % currentCaseScreenshots.length;
+  renderProjectModalImage();
+});
+
+projectModalNext.addEventListener("click", function () {
+  if (!currentCaseScreenshots.length) return;
+  currentImageIndex = (currentImageIndex + 1) % currentCaseScreenshots.length;
+  renderProjectModalImage();
+});
+
+projectModalDots.addEventListener("click", function (event) {
+  const dotButton = event.target.closest("[data-project-dot]");
+  if (!dotButton) return;
+
+  currentImageIndex = Number(dotButton.dataset.projectDot);
+  renderProjectModalImage();
+});
 
 
 // custom select variables

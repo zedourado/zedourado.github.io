@@ -1119,14 +1119,53 @@ main {
   margin-bottom: 15px;
 }
 
-.project-modal-gallery {
+.project-modal-carousel {
   display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
   gap: 10px;
 }
 
-.project-modal-gallery img {
+.project-modal-image {
   width: 100%;
   border-radius: 10px;
+}
+
+.project-modal-nav {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  background: hsla(0, 0%, 0%, 0.35);
+  color: var(--white-2);
+}
+
+.project-modal-carousel.is-multi {
+  grid-template-columns: auto 1fr auto;
+}
+
+.project-modal-carousel.is-multi .project-modal-nav {
+  display: inline-flex;
+}
+
+.project-modal-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.project-modal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--jet);
+}
+
+.project-modal-dot.active {
+  background: var(--orange-yellow-crayola);
 }
 
 
