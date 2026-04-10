@@ -122,6 +122,7 @@ const projectModalOverlay = document.querySelector("[data-project-modal-overlay]
 const projectModalCloseBtn = document.querySelector("[data-project-modal-close-btn]");
 const projectModalTitle = document.querySelector("[data-project-modal-title]");
 const projectModalDescription = document.querySelector("[data-project-modal-description]");
+const projectModalCarousel = document.querySelector("[data-project-modal-carousel]");
 const projectModalImage = document.querySelector("[data-project-modal-image]");
 const projectModalDots = document.querySelector("[data-project-modal-dots]");
 const projectModalPrev = document.querySelector("[data-project-modal-prev]");
@@ -163,11 +164,6 @@ const renderProjectModalImage = function () {
   projectModalDots.innerHTML = currentCaseScreenshots
     .map((_, index) => `<button class="project-modal-dot ${index === currentImageIndex ? "active" : ""}" data-project-dot="${index}" aria-label="Ir para imagem ${index + 1}"></button>`)
     .join("");
-
-  const hasMultipleImages = currentCaseScreenshots.length > 1;
-  projectModalPrev.disabled = !hasMultipleImages;
-  projectModalNext.disabled = !hasMultipleImages;
-  projectModalDots.style.display = hasMultipleImages ? "flex" : "none";
 };
 
 const openProjectModal = function (caseId) {
@@ -178,6 +174,9 @@ const openProjectModal = function (caseId) {
   projectModalDescription.textContent = caseData.description;
   currentCaseScreenshots = caseData.screenshots;
   currentImageIndex = 0;
+
+  const hasMultipleImages = currentCaseScreenshots.length > 1;
+  projectModalCarousel.classList.toggle("is-multi", hasMultipleImages);
 
   renderProjectModalImage();
   toggleProjectModal(true);
